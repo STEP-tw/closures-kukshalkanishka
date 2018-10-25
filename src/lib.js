@@ -11,7 +11,14 @@ const makeCounterFromN = function(beginValue){
   };
 }
 
-const makeCounterFromZero = undefined;
+const makeCounterFromZero = function(){
+  let count = 0;
+  return function(){
+    return count++;
+  };
+}
+
+
 const makeDeltaTracker = undefined;
 const makeFiboGenerator = undefined;
 const makeCycler = undefined;
