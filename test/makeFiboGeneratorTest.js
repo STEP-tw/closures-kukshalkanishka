@@ -44,6 +44,11 @@ const testMultipleFiboGenerators = function() {
   assert.equal(4,getNextFiboNum_2());
   assert.equal(6,getNextFiboNum_2());
   assert.equal(10,getNextFiboNum_2());
+
+  let getNextFiboNum_3 = makeFiboGenerator(3,4);
+  assert.equal(3,getNextFiboNum_3());
+  assert.equal(4,getNextFiboNum_3());
+  assert.equal(7,getNextFiboNum_3());
 };
 
 const runTests = function() {

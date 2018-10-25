@@ -27,29 +27,31 @@ const makeDeltaTracker = function(oldValue){
     let deltaTrack = {old : oldValue, delta : valueToAdd, "new" : sum};
     oldValue += valueToAdd;
     return deltaTrack;
-  }
+  };
 }
 
-const makeFiboGenerator = function(multiplier, secondTerm){
-  let previousTerm = -secondTerm;
-  let currentTerm = secondTerm -1;
-
-  if(multiplier == undefined){
-    multiplier = 1;
+const makeFiboGenerator = function(firstTerm, secondTerm){
+  
+  if(firstTerm == undefined){
+    firstTerm = 0;
+    secondTerm = 1;
   }
+
   if(secondTerm == undefined){
-    previousTerm = -1;
-    currentTerm = 1;
+    secondTerm = firstTerm;
+    firstTerm = 0;
   }
+  
+  let currentTerm = secondTerm - firstTerm;
+  let previousTerm =  firstTerm - currentTerm; 
 
-  const fibGenerator = function(){
+  const generateFib = function(){
     let sum = Math.abs(previousTerm + currentTerm);
-    let mulresult = sum*multiplier;
     previousTerm = currentTerm;
     currentTerm = sum;
-    return mulresult;
+    return sum;
   }
-  return fibGenerator;
+  return generateFib;
 }
 
 const makeCycler = function(inputElements){
