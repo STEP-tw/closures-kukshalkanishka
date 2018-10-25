@@ -18,8 +18,18 @@ const makeCounterFromZero = function(){
   };
 }
 
+const makeDeltaTracker = function(oldValue){
+  return function(valueToAdd){
+    if(valueToAdd == undefined){
+      valueToAdd = 0;
+    }
+    let sum = oldValue + valueToAdd;
+    let deltaTrack = {old : oldValue, delta : valueToAdd, "new" : sum};
+    oldValue += valueToAdd;
+    return deltaTrack;
+  }
+}
 
-const makeDeltaTracker = undefined;
 const makeFiboGenerator = undefined;
 const makeCycler = undefined;
 const curry = undefined;
