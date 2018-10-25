@@ -52,11 +52,25 @@ const makeFiboGenerator = function(multiplier, secondTerm){
   return fibGenerator;
 }
 
+const makeCycler = function(inputElements){
+  let elements = [];
+  let position = 0;
 
+  const copy = function(element){
+    return elements.push(element);
+  }
+  inputElements.map(copy);
 
+  return function(){
+    element = elements[position];
+    position++;
+    if(position > elements.length -1){
+      position = 0;
+    }
+    return element;
+  };
+}
 
-
-const makeCycler = undefined;
 const curry = undefined;
 const compose = undefined;
 
