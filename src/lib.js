@@ -71,7 +71,29 @@ const makeCycler = function(inputElements){
   };
 }
 
-const curry = undefined;
+const sum = function(num1, num2){
+  return num1 + num2;
+}
+
+const concat = function(list1, list2) {
+  return list1.concat(list2);
+}
+
+const isNumBetween = function(lowerLimit, upperLimit, num) {
+  return (lowerLimit < num && num > upperLimit);
+}
+
+const paintCar = function(color, make, model) {
+  return {color, make, model};
+}
+
+const curry = function(operation, operand){
+  return function(value1, value2){
+    let result = operation(operand, value1, value2);
+    return result;
+  };
+}
+
 const compose = undefined;
 
 exports.makeConstant=makeConstant;
