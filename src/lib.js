@@ -4,18 +4,20 @@ const makeConstant = function(value) {
   };
 }
 
+const increment = function(count) {
+  return function() {
+    return count++;
+  }
+}
+
 const makeCounterFromN = function(beginValue){
   let count = beginValue;
-  return function(){
-    return count++;
-  };
+  return increment(count);
 }
 
 const makeCounterFromZero = function(){
   let count = 0;
-  return function(){
-    return count++;
-  };
+  return increment(count);
 }
 
 const makeDeltaTracker = function(oldValue){
@@ -73,22 +75,6 @@ const makeCycler = function(inputElements){
   };
 }
 
-const sum = function(num1, num2){
-  return num1 + num2;
-}
-
-const concat = function(list1, list2) {
-  return list1.concat(list2);
-}
-
-const isNumBetween = function(lowerLimit, upperLimit, num) {
-  return (lowerLimit < num && num > upperLimit);
-}
-
-const paintCar = function(color, make, model) {
-  return {color, make, model};
-}
-
 const curry = function(operation, operand){
   return function(value1, value2){
     let result = operation(operand, value1, value2);
@@ -96,27 +82,10 @@ const curry = function(operation, operand){
   };
 }
 
-const lengthOf = function(list) {
-  return list.length;
-}
-
-const decrement= function(value) {
-  return value -1;
-}
-
-const isNotZero = function(item) {
-  return item !=0;
-}
-
-const removeZeroes = function(list) {
-  return list.filter(isNotZero);
-}
-
 const compose = function(operation2, operation1){
   return function(list1, list2) {
     let output1 = operation1(list1, list2);
-    let result = operation2(output1);
-    return result;
+    return operation2(output1);
   };
 }
 
