@@ -30,7 +30,32 @@ const makeDeltaTracker = function(oldValue){
   }
 }
 
-const makeFiboGenerator = undefined;
+const makeFiboGenerator = function(multiplier, secondTerm){
+  let previousTerm = -secondTerm;
+  let currentTerm = secondTerm -1;
+
+  if(multiplier == undefined){
+    multiplier = 1;
+  }
+  if(secondTerm == undefined){
+    previousTerm = -1;
+    currentTerm = 1;
+  }
+
+  const fibGenerator = function(){
+    let sum = Math.abs(previousTerm + currentTerm);
+    let mulresult = sum*multiplier;
+    previousTerm = currentTerm;
+    currentTerm = sum;
+    return mulresult;
+  }
+  return fibGenerator;
+}
+
+
+
+
+
 const makeCycler = undefined;
 const curry = undefined;
 const compose = undefined;
