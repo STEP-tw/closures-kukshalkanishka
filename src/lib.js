@@ -18,14 +18,14 @@ const makeCounterFromZero = function(){
   return increment(0);
 }
 
-const makeDeltaTracker = function(oldValue){
-  return function(valueToAdd){
-    if(valueToAdd == undefined){
-      valueToAdd = 0;
+const makeDeltaTracker = function(old){
+  return function(delta){
+    if(!delta) { 
+      delta = 0;
     }
-    let sum = oldValue + valueToAdd;
-    let deltaTrack = {old : oldValue, delta : valueToAdd, new : sum};
-    oldValue += valueToAdd;
+    let sum = old + delta;
+    let deltaTrack = {old, delta, new : sum};
+    old = sum;
     return deltaTrack;
   };
 }
@@ -34,22 +34,20 @@ const generateFib = function(fiboArgs) {
   let {previousTerm} = fiboArgs;
   let { currentTerm} = fiboArgs;
   return function(){
-    let sum = previousTerm + currentTerm;
+    let result = previousTerm;
+    let nextValue = currentTerm + previousTerm;
+    let previousTerm} =  
     previousTerm = currentTerm;
+
     currentTerm = sum;
     return sum;
   }
 }
 
-const makeFiboGenerator = function(firstTerm, secondTerm){
+const makeFiboGenerator = function(secondTerm = 1, firstTerm = 0){
 
-  if(!secondTerm) { 
-    secondTerm = firstTerm || 1;
-    firstTerm = 0;
-  }
-  
-  let currentTerm = secondTerm - firstTerm;
-  let previousTerm =  firstTerm - currentTerm; 
+  let currentTerm = Math.max(secondTerm, firstTerm); 
+  let previousTerm = Math.min(secondTerm, firstTerm);
   let fiboArgs = {previousTerm, currentTerm}
   return generateFib(fiboArgs);
 }
