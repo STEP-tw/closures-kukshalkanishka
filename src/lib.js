@@ -11,13 +11,11 @@ const increment = function(count) {
 }
 
 const makeCounterFromN = function(beginValue){
-  let count = beginValue;
-  return increment(count);
+  return increment(beginValue);
 }
 
 const makeCounterFromZero = function(){
-  let count = 0;
-  return increment(count);
+  return increment(0);
 }
 
 const makeDeltaTracker = function(oldValue){
@@ -26,51 +24,49 @@ const makeDeltaTracker = function(oldValue){
       valueToAdd = 0;
     }
     let sum = oldValue + valueToAdd;
-    let deltaTrack = {old : oldValue, delta : valueToAdd, "new" : sum};
+    let deltaTrack = {old : oldValue, delta : valueToAdd, new : sum};
     oldValue += valueToAdd;
     return deltaTrack;
   };
 }
 
-const makeFiboGenerator = function(firstTerm, secondTerm){
-  
-  if(firstTerm == undefined){
-    firstTerm = 0;
-    secondTerm = 1;
+const generateFib = function(fiboArgs) {
+  let {previousTerm} = fiboArgs;
+  let { currentTerm} = fiboArgs;
+  return function(){
+    let sum = previousTerm + currentTerm;
+    previousTerm = currentTerm;
+    currentTerm = sum;
+    return sum;
   }
+}
 
-  if(secondTerm == undefined){
-    secondTerm = firstTerm;
+const makeFiboGenerator = function(firstTerm, secondTerm){
+
+  if(!secondTerm) { 
+    secondTerm = firstTerm || 1;
     firstTerm = 0;
   }
   
   let currentTerm = secondTerm - firstTerm;
   let previousTerm =  firstTerm - currentTerm; 
-
-  const generateFib = function(){
-    let sum = Math.abs(previousTerm + currentTerm);
-    previousTerm = currentTerm;
-    currentTerm = sum;
-    return sum;
-  }
-  return generateFib;
+  let fiboArgs = {previousTerm, currentTerm}
+  return generateFib(fiboArgs);
 }
 
 const makeCycler = function(inputElements){
-  let elements = [];
-  let position = 0;
+  let index = 0;
 
-  const copy = function(element){
-    return elements.push(element);
+  const copy = function(element) {
+    return element;
   }
-  inputElements.map(copy);
+
+  let elements = inputElements.map(copy);
 
   return function(){
+    let position = index % elements.length; 
     element = elements[position];
-    position++;
-    if(position > elements.length -1){
-      position = 0;
-    }
+    index++;
     return element;
   };
 }
